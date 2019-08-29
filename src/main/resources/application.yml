@@ -1,6 +1,6 @@
 kafka:
   bootstrap-servers: localhost:9092
   topic:
-    test: test
+    test: docker-test
 server:
-  port: 9000
+  port: 9001

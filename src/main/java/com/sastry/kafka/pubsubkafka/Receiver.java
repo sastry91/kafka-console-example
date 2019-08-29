@@ -20,6 +20,7 @@ public class Receiver {
     @KafkaListener(topics = "${kafka.topic.test}")
     public void receive(String payload) {
         LOGGER.info("received payload = '{}'", payload);
+        System.out.println("received payload "+ payload);
         latch.countDown();
     }
 

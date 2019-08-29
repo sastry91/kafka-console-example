@@ -1,6 +1,7 @@
 package com.sastry.kafka.pubsubkafka;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,8 +16,8 @@ public class Controller {
 
     @Autowired
     private Sender sender;
-
-    private static final String test = "test";
+    @Value("${kafka.topic.test}")
+    private String topic;
 
     @RequestMapping("/")
     public String index() {
@@ -25,7 +26,8 @@ public class Controller {
 
     @RequestMapping("/kafka")
     public String kafka() throws InterruptedException {
-        sender.send(test, "Hello Spring Kafka!");
+        System.out.println(" topic name "+ topic);
+        sender.send(topic, "Hello Spring Kafka!");
         receiver.getLatch().await(10000, TimeUnit.MILLISECONDS);
         return "Done";
     }
